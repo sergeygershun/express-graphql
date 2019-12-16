@@ -368,7 +368,7 @@ function graphqlHTTP(options: Options): Middleware {
         }
         // Format any encountered errors.
         if (result && result.errors) {
-          let codes = result.errors.map(er => { return er.massege.match(/\d+/)[0] })
+          let codes = result.errors.map(er => { return er.message.match(/\d+/)[0] })
           if (codes) {
             response.statusCode = codes[0];
           }
