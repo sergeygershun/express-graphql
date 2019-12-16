@@ -97,11 +97,6 @@ export type OptionsData = {|
    */
   customFormatErrorFn?: ?(error: GraphQLError) => mixed,
 
-
-
-  setResponsCodeFn?: ?(error: GraphQLError) => mixed,
-
-
   /**
    * An optional function which will be used to create a document instead of
    * the default `parse` from `graphql-js`.
@@ -195,7 +190,6 @@ function graphqlHTTP(options: Options): Middleware {
     let context;
     let params;
     let pretty;
-    let setResponsCodeFn = null;
     let formatErrorFn = formatError;
     let validateFn = validate;
     let executeFn = execute;
@@ -377,10 +371,6 @@ function graphqlHTTP(options: Options): Middleware {
           (result: any).errors = result.errors.map(formatErrorFn);
         }
 
-        if (result && result.errors) {
-          setResponsCodeFn;
-        }
-
         // If allowed to show GraphiQL, present it instead of JSON.
         if (showGraphiQL) {
           const payload = renderGraphiQL({
@@ -438,7 +428,6 @@ function graphqlHTTP(options: Options): Middleware {
         optionsData.customFormatErrorFn ||
         optionsData.formatError ||
         formatErrorFn;
-      setResponsCodeFn = optionsData.setResponsCodeFn || null;
       extensionsFn = optionsData.extensions;
       pretty = optionsData.pretty;
       return optionsData;
